@@ -1,7 +1,16 @@
-﻿namespace ZarinpalGateway.Models.Enums
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ZarinpalGateway.Models.Enums
 {
     public enum States
     {
-        Redirected, Succeed, Failed
+        [Display(Name = "بدون پاسخ")]
+        Redirected,
+
+        [Display(Name = "پرداخت موفق")]
+        Succeed,
+
+        [Display(Name = "پرداخت لغو شده")]
+        Failed
     }
 }

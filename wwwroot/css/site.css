@@ -77,3 +77,15 @@ table {
     text-align: center;
     font-weight: bold;
 }
+
+.Redirected {
+    color: rgb(255 106 0)
+}
+
+.Succeed {
+    color: rgb(0 255 33)
+}
+
+.Failed {
+    color: rgb(255 0 110)
+}
