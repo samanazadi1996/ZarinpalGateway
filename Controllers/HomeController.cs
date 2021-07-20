@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ZarinpalGateway.Models;
+using ZarinpalGateway.Models.Enums;
 using ZarinpalSandbox;
 
 namespace ZarinpalGateway.Controllers
@@ -48,17 +49,18 @@ namespace ZarinpalGateway.Controllers
             string authority = Request.Query["Authority"];
             if (!string.IsNullOrEmpty(authority) && !string.IsNullOrEmpty(status))
             {
+                var pay = _payments.Single(p => p.Id.Equals(id) && p.Authority.Equals(authority));
                 if (status.ToLower().Equals("ok"))
                 {
-                    var pay = _payments.Single(p => p.Id.Equals(id) && p.Authority.Equals(authority));
                     var payment = new Payment(pay.Amount);
                     var result = await payment.Verification(authority);
                     if (result.Status == 100)
                     {
-                        pay.IsSuccess = true;
+                        pay.State = States.Succeed;
                         return RedirectToAction("Index", "Home", new { message = $"مبلغ {pay.Amount.ToString("#,##")} پرداخت شد" });
                     }
                 }
+                pay.State = States.Failed;
                 return RedirectToAction("Index", "Home", new { message = "پرداخت لغو شد" });
             }
             return RedirectToAction("Index", "Home", new { message = "درخواست جعلی" });

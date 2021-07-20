@@ -1,4 +1,5 @@
 ﻿using System;
+using ZarinpalGateway.Models.Enums;
 
 namespace ZarinpalGateway.Models
 {
@@ -8,7 +9,7 @@ namespace ZarinpalGateway.Models
         {
             Id = Guid.NewGuid();
             Amount = amount;
-            IsSuccess = false;
+            State = States.Redirected;
             DateTime = DateTime.Now;
         }
 
@@ -16,6 +17,6 @@ namespace ZarinpalGateway.Models
         public string Authority { get; set; }
         public DateTime DateTime { get; set; }
         public int Amount { get; set; }
-        public bool IsSuccess { get; set; }
+        public States State { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿@model List<PaymentModel>
+@using ZarinpalGateway.Models.Enums
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -31,8 +32,8 @@
                 <tr>
                     <td>@item.DateTime.ToString("HH:mm:ss")</td>
                     <td>@Convert.ToDouble(item.Amount).ToString("#,##")</td>
-                    <td class="@(item.IsSuccess? "text-success":"text-danger")">
-                        @(item.IsSuccess?"پرداخت شده" :"لغو شده")
+                    <td class="@(item.State.Equals(States.Succeed)? "text-success":(item.State.Equals(States.Failed)?"text-danger":"text-warning"))">
+                        @(item.State.Equals(States.Succeed)? "پرداخت شده" : (item.State.Equals(States.Failed)? "لغو شده" : "بدون پاسخ"))
                     </td>
                     <td>@item.Authority</td>
                 </tr>
