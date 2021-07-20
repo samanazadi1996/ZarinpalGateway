@@ -1,0 +1,43 @@
+﻿@model List<PaymentModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="col-md-12">
+    <div class=" col-md-12 text-center text-info form-group">
+        @ViewBag.Message
+    </div>
+    <div class="col-md-12 text-center form-group">
+        <form asp-action="Payment" method="post" class="form-row">
+            <div class="col-md-3"></div>
+            <div class="col-md-3 form-group">
+                <input type="number" name="amount" value="10000" class="form-control" />
+            </div>
+            <div class="col-md-3 form-group">
+                <input type="submit" name="name" value="پرداخت" class="btn btn-success btn-block" />
+            </div>
+            <div class="col-md-3"></div>
+        </form>
+    </div>
+    <div class="col-md-12 form-group">
+        <table class="table table-striped table-hover" dir="rtl">
+            <tr>
+                <th>زمان پرداخت</th>
+                <th>مبلغ پرداخت</th>
+                <th>وضعیت پرداخت</th>
+                <th>Authority</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.DateTime.ToString("HH:mm:ss")</td>
+                    <td>@Convert.ToDouble(item.Amount).ToString("#,##")</td>
+                    <td class="@(item.IsSuccess? "text-success":"text-danger")">
+                        @(item.IsSuccess?"پرداخت شده" :"لغو شده")
+                    </td>
+                    <td>@item.Authority</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
